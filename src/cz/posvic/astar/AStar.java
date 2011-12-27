@@ -11,12 +11,6 @@ public class AStar {
 		return distX * distX + distY * distY;
 	}
 
-	private static int distBetween(Node beg, Node end) {
-		int distX = end.getX() - beg.getX();
-		int distY = end.getY() - beg.getY();
-		return distX * distX + distY * distY;
-	}
-
 	private static Node findBestNode(List<Node> list) {
 		Node best = null;
 
@@ -91,7 +85,7 @@ public class AStar {
 						continue;
 					}
 
-					int tentativeG = actualNode.getG() + distBetween(actualNode, neighbor);
+					int tentativeG = actualNode.getG() + heuristic(actualNode, neighbor);
 					boolean tentativeIsBetter = false;
 
 					if (!opened.contains(neighbor)) {
