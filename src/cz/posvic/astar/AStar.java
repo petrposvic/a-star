@@ -5,6 +5,8 @@ import java.util.List;
 
 public class AStar {
 
+	private static final int BLOCK = 0;
+
 	private static int heuristic(Node beg, Node end) {
 		int distX = end.getX() - beg.getX();
 		int distY = end.getY() - beg.getY();
@@ -14,13 +16,13 @@ public class AStar {
 	private static Node findBestNode(List<Node> list) {
 		Node best = null;
 
-		for (Node n : list) {
+		for (Node node : list) {
 			if (best == null) {
-				best = n;
+				best = node;
 			} else
 
-			if (n.getF() < best.getF()) {
-				best = n;
+			if (node.getF() < best.getF()) {
+				best = node;
 			}
 		}
 
@@ -35,23 +37,27 @@ public class AStar {
 		beg.setG(0);
 		beg.setH(heuristic(beg, end));
 		beg.setF(beg.getG() + beg.getH());
-		opened.add(beg);
+
+		if (map[beg.getY()][beg.getX()] != BLOCK) {
+			opened.add(beg);
+		}
 
 		while (!opened.isEmpty()) {
 
 			// Node with the lowest f
 			Node actualNode = findBestNode(opened);
 
-			// Finish
+			// Finish, build a path from beg to end
 			if (actualNode.equals(end)) {
 
 				LinkedList<Node> ret = new LinkedList<Node>();
-				Node a = actualNode.getParent();
-				while (a != null) {
-					ret.addFirst(a);
-					a = a.getParent();
+				Node node = actualNode.getParent();
+				while (node != null) {
+					ret.addFirst(node);
+					node = node.getParent();
 				}
 
+				ret.add(end);
 				return ret;
 			}
 
@@ -61,7 +67,7 @@ public class AStar {
 			// Neighbors of actual node
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					
+
 					// Actual is neighbor
 					if (i == 0 && j == 0) {
 						continue;
@@ -76,7 +82,7 @@ public class AStar {
 					Node neighbor = new Node(x, y);
 
 					// Position is blocked
-					if (map[y][x] == 0) {
+					if (map[y][x] == BLOCK) {
 						continue;
 					}
 

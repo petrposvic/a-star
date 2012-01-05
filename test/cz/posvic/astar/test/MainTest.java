@@ -15,12 +15,8 @@ public class MainTest {
 
 	int[][] clearMap = new int[8][8];
 	int[][] blockedMap = new int[8][8];
-	int[][] labyrintMap = {
-			{1, 0, 0, 1, 0},
-			{1, 0, 1, 0, 1},
-			{1, 0, 0, 0, 1},
-			{0, 1, 1, 1, 0}
-	};
+	int[][] labyrintMap = { { 1, 0, 0, 1, 0 }, { 1, 0, 1, 0, 1 }, { 1, 0, 0, 0, 1 }, { 0, 1, 1, 1, 0 } };
+	int[][] twoWaysMap = { { 1, 0, 0, 1, 0 }, { 1, 0, 1, 0, 1 }, { 1, 0, 1, 0, 1 }, { 0, 1, 1, 1, 0 } };
 
 	@Before
 	public void setMap() {
@@ -59,13 +55,26 @@ public class MainTest {
 
 	@Test
 	public void testLabyrint() {
-		List<Node> path = AStar.findPath(labyrintMap, new Node(0, 0), new Node(2, 1));
-		Assert.assertEquals(9, path.size());
-		
+		List<Node> path1 = AStar.findPath(labyrintMap, new Node(0, 0), new Node(2, 1));
+		Assert.assertEquals(9, path1.size());
+
 		List<Node> path2 = AStar.findPath(labyrintMap, new Node(0, 0), new Node(2, 1));
 		for (Node n : path2) {
-			System.out.print(n + " -> ");
+			System.out.print(n + " ");
 		}
+		System.out.println();
+	}
+
+	@Test
+	public void testTwoWays() {
+		List<Node> path1 = AStar.findPath(twoWaysMap, new Node(0, 0), new Node(2, 1));
+		Assert.assertEquals(5, path1.size());
+
+		List<Node> path2 = AStar.findPath(twoWaysMap, new Node(0, 0), new Node(2, 1));
+		for (Node n : path2) {
+			System.out.print(n + " ");
+		}
+		System.out.println();
 	}
 
 }
