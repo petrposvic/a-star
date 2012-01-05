@@ -15,12 +15,14 @@ import cz.posvic.astar.Node;
 public class Example extends JPanel implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
+	private static final int CELL = 50;
+	private static final int SIZE_X = 8;
+	private static final int SIZE_Y = 5;
 
 	public static void main(String[] args) {
 		new Example();
 	}
 
-	private final int CELL = 50;
 	private int[][] map;
 
 	private Node beginNode;
@@ -28,7 +30,7 @@ public class Example extends JPanel implements MouseListener {
 
 	public Example() {
 
-		map = new int[5][10];
+		map = new int[SIZE_Y][SIZE_X];
 		addMouseListener(this);
 
 		JFrame frame = new JFrame("A* example");
