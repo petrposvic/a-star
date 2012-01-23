@@ -31,34 +31,34 @@ public class MainTest {
 
 	@Test
 	public void testHorizontal() {
-		List<Node> path = AStar.findPath(clearMap, new Node(0, 0), new Node(7, 0));
+		List<Node> path = AStar.findPath(clearMap, 0, true, new Node(0, 0), new Node(7, 0));
 		Assert.assertEquals(7, path.size());
 	}
 
 	@Test
 	public void testVertical() {
-		List<Node> path = AStar.findPath(clearMap, new Node(0, 0), new Node(0, 7));
+		List<Node> path = AStar.findPath(clearMap, 0, true, new Node(0, 0), new Node(0, 7));
 		Assert.assertEquals(7, path.size());
 	}
 
 	@Test
 	public void testDiagonal() {
-		List<Node> path = AStar.findPath(clearMap, new Node(0, 0), new Node(7, 7));
+		List<Node> path = AStar.findPath(clearMap, 0, true, new Node(0, 0), new Node(7, 7));
 		Assert.assertEquals(7, path.size());
 	}
 
 	@Test
 	public void testNoPath() {
-		List<Node> path = AStar.findPath(blockedMap, new Node(0, 0), new Node(7, 7));
+		List<Node> path = AStar.findPath(blockedMap, 0, true, new Node(0, 0), new Node(7, 7));
 		Assert.assertEquals(0, path.size());
 	}
 
 	@Test
 	public void testLabyrint() {
-		List<Node> path1 = AStar.findPath(labyrintMap, new Node(0, 0), new Node(2, 1));
+		List<Node> path1 = AStar.findPath(labyrintMap, 0, true, new Node(0, 0), new Node(2, 1));
 		Assert.assertEquals(9, path1.size());
 
-		List<Node> path2 = AStar.findPath(labyrintMap, new Node(0, 0), new Node(2, 1));
+		List<Node> path2 = AStar.findPath(labyrintMap, 0, true, new Node(0, 0), new Node(2, 1));
 		for (Node n : path2) {
 			System.out.print(n + " ");
 		}
@@ -67,10 +67,10 @@ public class MainTest {
 
 	@Test
 	public void testTwoWays() {
-		List<Node> path1 = AStar.findPath(twoWaysMap, new Node(0, 0), new Node(2, 1));
+		List<Node> path1 = AStar.findPath(twoWaysMap, 0, true, new Node(0, 0), new Node(2, 1));
 		Assert.assertEquals(5, path1.size());
 
-		List<Node> path2 = AStar.findPath(twoWaysMap, new Node(0, 0), new Node(2, 1));
+		List<Node> path2 = AStar.findPath(twoWaysMap, 0, true, new Node(0, 0), new Node(2, 1));
 		for (Node n : path2) {
 			System.out.print(n + " ");
 		}

@@ -95,31 +95,34 @@ public class Example extends JPanel implements MouseListener {
 		switch (event.getButton()) {
 
 		// Left mouse button find path
-		case 1:
-			if (beginNode == null) {
-				path = null;
-				beginNode = new Node(x, y);
-			} else
+			case 1:
+				if (beginNode == null) {
+					path = null;
+					beginNode = new Node(x, y);
+				} else
 
-			{
-				path = AStar.findPath(map, beginNode, new Node(x, y));
-				beginNode = null;
-				
-				// Print path to standard output
-				StringBuffer sb = new StringBuffer();
-				for (Node node : path) {
-					sb.append(node);
-					sb.append(" -> ");
+				{
+					path = AStar.findPath(map, 0, true, beginNode, new Node(x, y));
+					beginNode = null;
+
+					// Print path to standard output
+					StringBuffer sb = new StringBuffer();
+					for (Node node : path) {
+						sb.append(node);
+						sb.append(" -> ");
+					}
+
+					if (sb.length() >= 4) {
+						System.out.println(sb.substring(0, sb.length() - 4));
+					}
 				}
-				System.out.println(sb.substring(0, sb.length() - 4));
-			}
-			break;
+				break;
 
-		// Right mouse button edit map
-		case 3:
-			path = null;
-			map[y][x] = (map[y][x] + 1) % 2;
-			break;
+			// Right mouse button edit map
+			case 3:
+				path = null;
+				map[y][x] = (map[y][x] + 1) % 2;
+				break;
 		}
 
 		repaint();

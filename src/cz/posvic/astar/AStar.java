@@ -29,7 +29,7 @@ public class AStar {
 		return best;
 	}
 
-	public static List<Node> findPath(int[][] map, Node beg, Node end) {
+	public static List<Node> findPath(int[][] map, int BLOCK, boolean blocking, Node beg, Node end) {
 
 		List<Node> opened = new LinkedList<Node>();
 		List<Node> closed = new LinkedList<Node>();
@@ -38,8 +38,14 @@ public class AStar {
 		beg.setH(heuristic(beg, end));
 		beg.setF(beg.getG() + beg.getH());
 
-		if (map[beg.getY()][beg.getX()] != BLOCK) {
-			opened.add(beg);
+		if (blocking) {
+			if (map[beg.getY()][beg.getX()] != BLOCK) {
+				opened.add(beg);
+			}
+		} else {
+			if (map[beg.getY()][beg.getX()] == BLOCK) {
+				opened.add(beg);
+			}
 		}
 
 		while (!opened.isEmpty()) {
@@ -82,7 +88,7 @@ public class AStar {
 					Node neighbor = new Node(x, y);
 
 					// Position is blocked
-					if (map[y][x] == BLOCK) {
+					if (blocking && map[y][x] == BLOCK || !blocking && map[y][x] != BLOCK) {
 						continue;
 					}
 
